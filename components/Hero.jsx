@@ -26,7 +26,7 @@ function Hero() {
                 </Link>
                 <Link href={"/www.youtube.com"}>
                     <Button size={"lg"} variant={"outline"} className={"px-8"}>
-                        Get Started
+                        Tutorial
                     </Button>
                 </Link>
             </div>
