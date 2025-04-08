@@ -1,3 +1,4 @@
+import Feature from "@/components/Feature";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import { UserButton } from "@clerk/nextjs";
@@ -16,6 +17,7 @@ export default function Home() {
   {/* Hero Content Layer */}
   <div className="relative z-10">
     <Hero />
+    <Feature/>
   </div>
 </div>
       </div>
