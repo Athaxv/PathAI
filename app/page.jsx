@@ -1,15 +1,17 @@
 import Header from "@/components/Header";
+import Hero from "@/components/Hero";
 import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <>
-    <h1>Hola,, Amigos</h1>
     <div>
-      <h2>Kaise ho theek ho</h2>
+      <Header/>
+      <div>
+        <Hero/>
+      </div>
     </div>
-    <Header/>
     </>
   );
 }
