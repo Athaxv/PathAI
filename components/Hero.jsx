@@ -32,7 +32,7 @@ function Hero() {
             </div>
 
             <div>
-            <div className="flex justify-center items-center pt-10">
+            <div className="flex justify-center items-center pt-10 z-1">
       <HeroVideoDialog
         className="block dark:hidden w-[500px] md:w-[700px] max-w-full"
         animationStyle="top-in-bottom-out"
