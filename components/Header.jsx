@@ -19,8 +19,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { checkUser } from "@/lib/CheckUser";
 
-function Header() {
+async function Header() {
+  await checkUser()
   return (
     <div className="w-full fixed top-0 border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto px-4 h-16 flex justify-between w-full p-2 items-center">
