@@ -1,4 +1,6 @@
-import { auth } from "@clerk/nextjs/dist/types/server";
+"use server"
+import { db } from "@/lib/prisma";
+import { auth } from "@clerk/nextjs/server";
 
 export async function updateuser(data) {
     const { userId } = await auth();
