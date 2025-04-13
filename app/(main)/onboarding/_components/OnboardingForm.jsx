@@ -16,11 +16,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import useFetch from "@/hooks/use-fetch";
+import { updateuser } from "@/actions/user";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 
 function OnboardingForm({ industries }) {
   const [selectIndustry, setSelectedIndustry] = useState(null);
   const router = useRouter();
+
+  const {
+    loading: updateLoading,
+    fn: updateUserFn,
+    data: updateResult
+  } = useFetch(updateuser)
 
   const {
     register,
@@ -34,9 +44,26 @@ function OnboardingForm({ industries }) {
 
   const watchIndustry = watch("industry")
 
-  const onSubmit = (val) => {
-    console.log(val)
+  const onSubmit = async (val) => {
+    try {
+      const formattedIndustry = `${values.industry}-${values.subIndustry.toLowerCase().replace(/ /g, "-")}`
+
+      await updateUserFn({
+        ...values,
+        industry: formattedIndustry,
+      })
+    } catch (error) {
+      console.error("Onboarding error: ", error)
+    }
   }
+
+  useEffect(() => {
+    if (updateResult?.success && !updateLoading) {
+      toast.success("Profile completed successfully!")
+      router.push("/dashboard")
+      router.refresh()
+    }
+  }, [updateResult, updateLoading])
 
   return (
     <div className="flex items-center justify-center bg-background">
@@ -51,7 +78,7 @@ function OnboardingForm({ industries }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form className="space-y-6 " onSubmit={handleSubmit(onSubmit)}>
+          <form className="space-y-6 " handleSubmit={onSubmit}>
             <div className="space-y-2">
               <Label htmlFor="industry">Industry</Label>
             <Select 
@@ -153,8 +180,15 @@ function OnboardingForm({ industries }) {
               </p>
             )}
             </div>
-            <Button type="submit" className={"w-full"}>
-              Complete Profile
+            <Button type="submit" className={"w-full"} disabled={updateLoading}>
+              {updateLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
+                  Saving...
+                </>
+              ): (
+                "Complete Profile"
+              )}
             </Button>
           </form>
         </CardContent>

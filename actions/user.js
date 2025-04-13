@@ -15,7 +15,7 @@ export async function updateuser(data) {
     if (!user) throw new Error("User not found")
 
     try {
-        const result = await db.$transcation(
+        const result = await db.$transaction(
             async (tx) => {
                 // Find if the industry exist
                 // If industry does nnot exist , create it with default values
@@ -60,10 +60,10 @@ export async function updateuser(data) {
                 timeout: 10000,
             }
         )
-        return result.user 
+        return {success: true, ...result}
     } catch (error) {
         console.error("Error updating user and industry: ", error.message)
-        throw new Error("Failed to update user profile")
+        throw new Error("Failed to update user profile", error.message)
     }
 }
 
