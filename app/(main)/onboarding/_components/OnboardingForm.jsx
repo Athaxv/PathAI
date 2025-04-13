@@ -2,7 +2,9 @@ import React from 'react'
 
 function OnboardingForm({ industries }) {
   return (
-    <div>O</div>
+    <div>
+      
+    </div>
   )
 }
 
