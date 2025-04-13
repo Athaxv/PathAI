@@ -1,10 +1,11 @@
 import React from 'react'
+import OnboardingForm from './_components/OnboardingForm'
 
 function OnBoarding() {
   return (
-    <div>
-      
-    </div>
+    <main>
+      <OnboardingForm industries={industries} />
+    </main>
   )
 }
 
