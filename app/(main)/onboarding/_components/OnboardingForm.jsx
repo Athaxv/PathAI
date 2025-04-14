@@ -10,7 +10,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
@@ -46,10 +46,10 @@ function OnboardingForm({ industries }) {
 
   const onSubmit = async (val) => {
     try {
-      const formattedIndustry = `${values.industry}-${values.subIndustry.toLowerCase().replace(/ /g, "-")}`
+      const formattedIndustry = `${val.industry}-${val.subIndustry.toLowerCase().replace(/ /g, "-")}`
 
       await updateUserFn({
-        ...values,
+        ...val,
         industry: formattedIndustry,
       })
     } catch (error) {
@@ -78,7 +78,7 @@ function OnboardingForm({ industries }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form className="space-y-6 " handleSubmit={onSubmit}>
+          <form className="space-y-6 " onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-2">
               <Label htmlFor="industry">Industry</Label>
             <Select 

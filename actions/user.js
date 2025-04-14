@@ -2,11 +2,12 @@
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
+
 export async function updateuser(data) {
     const { userId } = await auth();
     if (!userId) throw new Error("Unauthorized");
 
-    const user = await db.find.findUnique({
+    const user = await db.user.findUnique({
         where: {
             clerkUserId: userId,
         }
@@ -29,13 +30,14 @@ export async function updateuser(data) {
                 if (!industryInsight){
                     industryInsight = await tx.industryInsight.create({
                         data: {
-                            industryInsight: data.industry,
+                            industry: data.industry,
+                            // industryInsight: data.industry,
                             salaryRanges: [],
                             growthRate: 0,
-                            demandLevel: "Medium",
+                            demandLevel: "MEDIUM",
                             topSkills: [],
-                            marketOutlook: "Neutral",
-                            keyTrends: [],
+                            marketOutlook: "NEUTRAL",
+                            KeyTrends: [],
                             recommendedSkills: [],
                             nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
                         }
@@ -48,7 +50,7 @@ export async function updateuser(data) {
                     },
                     data: {
                         industry: data.industry,
-                        experience: data.industry,
+                        experience: data.experience,
                         bio: data.bio,
                         skills: data.skills
                     }
