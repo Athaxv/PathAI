@@ -17,10 +17,10 @@ export async function generateAIInsights( industry ){
               { "role": "string", "min": number, "max": number, "median": number, "location": "string" }
             ],
             "growthRate": number,
-            "demandLevel": "High" | "Medium" | "Low",
+            "demandLevel": "HIGH" | "MEDIUM" | "LOW",
             "topSkills": ["skill1", "skill2"],
-            "marketOutlook": "Positive" | "Neutral" | "Negative",
-            "keyTrends": ["trend1", "trend2"],
+            "marketOutlook": "POSITIVE" | "NEUTRAL" | "NEGATIVE",
+            "KeyTrends": ["trend1", "trend2"],
             "recommendedSkills": ["skill1", "skill2"]
           }
           
