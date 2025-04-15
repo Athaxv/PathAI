@@ -1,0 +1,154 @@
+import { Brain, BriefcaseIcon, LineChart, TrendingDown, TrendingUp } from "lucide-react";
+import React from "react";
+import { format, formatDistanceToNow } from "date-fns";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+
+function DashboardView({ insights }) {
+  const salaryData = insights.salaryRanges.map((range) => ({
+    name: range.role,
+    min: range.min / 1000,
+    max: range.max / 1000,
+    median: range.median / 1000,
+  }));
+
+  const chartData = [
+    { month: "January", desktop: 186, mobile: 80 },
+    { month: "February", desktop: 305, mobile: 200 },
+    { month: "March", desktop: 237, mobile: 120 },
+    { month: "April", desktop: 73, mobile: 190 },
+    { month: "May", desktop: 209, mobile: 130 },
+    { month: "June", desktop: 214, mobile: 140 },
+  ]
+  const chartConfig = {
+    desktop: {
+      label: "Desktop",
+      color: "hsl(var(--chart-1))",
+    },
+    mobile: {
+      label: "Mobile",
+      color: "hsl(var(--chart-2))",
+    },
+  } 
+
+  const getDemandLevelColor = (level) => {
+    switch (level.toLowerCase()) {
+      case "HIGH":
+        return "bg-red-800";
+      case "MEDIUM":
+        return "bg-orange-600";
+      case "LOW":
+        return "bg-orange-300";
+      default:
+        return "bg-green-500";
+    }
+  };
+
+  const getMarketOutlookInfo = (outlook) => {
+    switch (outlook.toLowerCase()) {
+      case "POSITIVE":
+        return { icon: TrendingUp, color: "text-green-500" };
+      case "NEUTRAL":
+        return { icon: LineChart, color: "text-yellow-500" };
+      case "NEGATIVE":
+        return { icon: TrendingDown, color: "text-red-500" };
+      default:
+        return { icon: LineChart, color: "text-green-500" };
+    }
+  };
+
+  const OutlookIcon = getMarketOutlookInfo(insights.marketOutlook).icon;
+  const outlookColor = getMarketOutlookInfo(insights.marketOutlook).color;
+
+  const lastUpdatedDate = format(new Date(insights.lastUpdated), "dd/MM/yyyy");
+  const nextUpdateDistance = formatDistanceToNow(
+    new Date(insights.nextUpdate),
+    { addSuffix: true }
+  );
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <Badge variant={"outline"}>Last Updated: {lastUpdatedDate}</Badge>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card>
+          <CardHeader className={"flex flex-row items-center justify-between space-y-0 pb-1"}>
+            <CardTitle className={"text-sm font-medium"}>Market Outlook</CardTitle>
+            <OutlookIcon className={`h-4 w-4 ${outlookColor}`}/>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+                {insights.marketOutlook}
+            </div>
+            <p className="text-xs text-muted-foreground">Next update {nextUpdateDistance}</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className={"flex flex-row items-center justify-between space-y-0 pb-1"}>
+            <CardTitle className={"text-sm font-medium"}>Industry Growth</CardTitle>
+            <TrendingUp className="h-4 w-4 text-muted-foreground"/>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+                {insights.growthRate.toFixed(1)}%
+            </div>
+            <Progress value={insights.growthRate} className={"mt-2"}/>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className={"flex flex-row items-center justify-between space-y-0 pb-1"}>
+            <CardTitle className={"text-sm font-medium"}>Demand Level</CardTitle>
+            <BriefcaseIcon className={`h-4 w-4 text-muted-foreground`}/>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+                {insights.demandLevel}
+            </div>
+            <div className={`h-2 w-full rounded-full mt-2 ${getDemandLevelColor(insights.demandLevel)}`}></div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className={"flex flex-row items-center justify-between space-y-0 pb-1"}>
+            <CardTitle className={"text-sm font-medium"}>Top Skills</CardTitle>
+            <Brain className={`h-4 w-4 text-muted-foreground`}/>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-1">
+                {insights.topSkills.map((skill) => (
+                    <Badge key={skill} variant="secondary" className={" hover:bg-black"}>{skill}</Badge>
+                ))}
+            </div>
+            
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+          <CardHeader>
+            <CardTitle>Salary Ranges by Role</CardTitle>
+            <CardDescription>
+                Displaying minimum, median, and maximum salaries (In Thousands)
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[400px]">
+
+            <ChartContainer>
+      <BarChart data={salaryData}>
+        <Bar dataKey="value" />
+        <ChartTooltip content={<ChartTooltipContent />} />
+      </BarChart>
+    </ChartContainer>
+
+            </div>
+          </CardContent>
+        </Card>
+    </div>
+  );
+}
+
+export default DashboardView;
