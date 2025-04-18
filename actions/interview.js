@@ -1,3 +1,4 @@
+"use server"
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
@@ -9,7 +10,7 @@ const model = genAI.getGenerativeModel({
 
 export async function generateQuiz() {
     const { userId } = await auth();
-    if (userId) throw new Error("Unauthorized");
+    if (!userId) throw new Error("Unauthorized");
 
     const user = await db.user.findUnique({
         where: {
@@ -57,16 +58,16 @@ export async function generateQuiz() {
 }
 
 export async function saveQuizResult(questions, answers, score){
-    const { userId } = await auth();
-    if (userId) throw new Error("Unauthorized");
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
 
-    const user = await db.user.findUnique({
-        where: {
-            clerkUserId: userId,
-        }
-    })
+  const user = await db.user.findUnique({
+      where: {
+          clerkUserId: userId,
+      }
+  })
 
-    if (!user) throw new Error("User not found");
+  if (!user) throw new Error("User not found");
 
     const questionsResults = questions.map((q, index) => (
         {
@@ -102,7 +103,7 @@ export async function saveQuizResult(questions, answers, score){
 
     try {
         const result = await model.generateContent(improvementPrompt)
-        const response = result.response()
+        const response = result.response
         improvementTip = response.text().trim()
     } catch (error) {
         console.error("Error Generating Improvemnt Tip", error);
