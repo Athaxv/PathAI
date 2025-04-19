@@ -4,7 +4,7 @@ import React from 'react'
 
 function StatsCard({ assessments }) {
   const getAverageScore = () => {
-    if (!assessments.length) return 0;
+    if (!assessments || !assessments.length) return 0;
     const total = assessments.reduce(
       (sum, assessment) => sum + assessment.quizScore,
       0
@@ -13,12 +13,12 @@ function StatsCard({ assessments }) {
   }
 
   const getLatestAssessment = () => {
-    if (!assessments.length) return null;
+    if (!assessments || !assessments.length) return null;
     return assessments[0];
   }
 
   const getTotalQuestions = () => {
-    if (!assessments.length) return 0;
+    if (!assessments || !assessments.length) return 0;
     return assessments.reduce(
       (sum, assessment) => sum + assessment.questions.length,
       0
