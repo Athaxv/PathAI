@@ -1,3 +1,4 @@
+"use server"
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
@@ -80,6 +81,7 @@ export async function improveWithAI({ current, type }){
         As an expert resume writer, improve the following ${type} description for a ${user.industry} professional.
         Make it more impactful, quantifiable, and aligned with industry standards.
         Current content: "${current}"
+        Enhance the current content based on the info given in the content
     
         Requirements:
         1. Use action verbs
