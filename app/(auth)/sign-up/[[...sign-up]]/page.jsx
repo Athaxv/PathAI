@@ -4,7 +4,7 @@ import React from 'react'
 function page() {
   return (
     <div>
-        <SignUp/>
+        <SignUp signInUrl="/onboarding"/>
     </div>
   )
 }

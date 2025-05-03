@@ -56,7 +56,7 @@ async function Header() {
                 <DropdownMenuItem>
                   <Link href={"/resume"} className="flex items-center gap-2">
                     <FileText className="h-4 w-4" />
-                    <span className="hidden md:block">Build Resume</span>
+                    <span className=" md:block">Build Resume</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
@@ -65,13 +65,13 @@ async function Header() {
                     className="flex items-center gap-2"
                   >
                     <PenBox className="h-4 w-4" />
-                    <span className="hidden md:block">Cover Letter</span>
+                    <span className=" md:block">Cover Letter</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href={"/interview"} className="flex items-center gap-2">
                     <GraduationCap className="h-4 w-4" />
-                    <span className="hidden md:block">Interview Prep</span>
+                    <span className=" md:block">Interview Prep</span>
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
