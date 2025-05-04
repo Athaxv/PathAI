@@ -200,6 +200,43 @@ function Feature() {
           </div>
         </div>
       </section>
+      <footer className="border-t bg-background text-foreground flex justify-between">
+      <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Your AI Career Coach</h3>
+          <p className="text-sm text-muted-foreground">
+            Helping you reach your career goals with AI-powered tools and insights.
+          </p>
+        </div>
+
+        <div>
+          <h4 className="text-md font-semibold mb-2">Quick Links</h4>
+          <ul className="space-y-1 text-sm">
+            <li>
+              <Link href="/dashboard" className="hover:underline text-muted-foreground">Dashboard</Link>
+            </li>
+            <li>
+              <Link href="/about" className="hover:underline text-muted-foreground">About</Link>
+            </li>
+            <li>
+              <Link href="/contact" className="hover:underline text-muted-foreground">Contact</Link>
+            </li>
+            <li>
+              <Link href="/privacy" className="hover:underline text-muted-foreground">Privacy Policy</Link>
+            </li>
+          </ul>
+        </div>
+
+        <div className="flex flex-col justify-between items-center md:items-end">
+          <p className="text-sm text-muted-foreground">
+            © {new Date().getFullYear()} Your AI Career Coach. All rights reserved.
+          </p>
+          <p className="text-sm mt-2 text-muted-foreground">
+            Developed with ❤️ by <span className="font-medium">Athaxv</span>
+          </p>
+        </div>
+      </div>
+    </footer>
     </>
   );
 }
