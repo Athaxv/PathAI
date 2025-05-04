@@ -59,3 +59,9 @@ export const resumeSchema = z.object({
     education: z.array(entrySchema),
     projects: z.array(entrySchema)
 })
+
+export const coverLetterSchema = z.object({
+    companyName: z.string().min(3, "Company Name is Required"),
+    jobTitle: z.string().min(3, "Title of the Job must be specified"),
+    jobDescription: z.string().min(10, "A description of the job is must").max(500, "Job Description must not be more than 500 Characters")
+})
