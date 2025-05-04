@@ -10,7 +10,7 @@ async function CoverLetter({ params }) {
     const coverLetter = await getCoverLetter(id);
 
   return (
-    <div className='mx-auto container py-6'>
+    <div className='mx-auto container py-6 pl-3 pr-3'>
       <div className='flex flex-col space-y-2'>
         <Link href={'/ai-cover-letter'}>
           <Button variant={'link'} className={'gap-2 pl-0'}>
@@ -23,7 +23,7 @@ async function CoverLetter({ params }) {
           {coverLetter?.jobTitle} at {coverLetter?.companyName}
         </h1>
       </div>
-      <CoverLetterPreview/>
+      <CoverLetterPreview coverLetter={coverLetter}/>
     </div>
   )
 }

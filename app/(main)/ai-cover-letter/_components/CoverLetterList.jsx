@@ -1,8 +1,13 @@
 "use client";
+import { deleteCoverLetter } from "@/actions/CoverLetter";
 import {
   AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
+  AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
@@ -14,12 +19,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Eye } from "lucide-react";
+import { format } from "date-fns";
+import { Eye, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { toast } from "sonner";
 
 function CoverLetterList({ coverLetters }) {
   const router = useRouter();
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteCoverLetter(id);
+      toast.success("Cover letter deleted successfully!");
+      router.refresh();
+    } catch (error) {
+      toast.error(error.message || "Failed to delete cover letter");
+    }
+  };
 
   if (!coverLetters?.length) {
     return (
