@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PathAI - AI-Powered Career Coach 🧠✨
 
-## Getting Started
+🔗 [Live Demo](https://path-ai-brown.vercel.app/)
 
-First, run the development server:
+## 🚀 Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**PathAI** is a smart, AI-powered career coach that helps users:
+- ✍️ Generate personalized **cover letters** and **resumes**
+- 🎯 Take domain-specific **quizzes** to prep for interviews
+- 🔒 Access protected features via **Clerk authentication**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Designed with a sleek, responsive UI and a modular component structure — this project brings together practicality and modern web standards with a SaaS feel.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Features
 
-## Learn More
+- 📝 AI-Generated Cover Letters & Resumes (via OpenAI)
+- 🎯 Domain-Based Quizzes with Score Evaluation
+- 🔐 Authentication & User Management (via Clerk)
+- 📱 Fully Responsive UI (Mobile/Desktop Friendly)
+- 🧩 Component-Based Architecture
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠 Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Frontend:** Next.js, React, Tailwind CSS
+- **Auth:** Clerk
+- **Backend/API:** PrismaORM, NeonDB, GeminiAPI, Node.js
+- **Deployment:** Vercel
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
