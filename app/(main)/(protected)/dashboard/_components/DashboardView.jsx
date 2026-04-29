@@ -9,6 +9,23 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxi
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 function DashboardView({ insights }) {
+  if (insights?.isPending) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Insights are being generated</CardTitle>
+          <CardDescription>
+            We’re preparing your industry insights. Please check back in a few
+            moments.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Badge variant={"outline"}>Status: Pending</Badge>
+        </CardContent>
+      </Card>
+    );
+  }
+
   const salaryData = insights.salaryRanges.map((range) => ({
     name: range.role,
     min: range.min / 1000,

@@ -4,6 +4,8 @@ import { auth } from "@clerk/nextjs/server";
 import { generateNvidiaCompletion } from "@/lib/ai/nvidia";
 
 export async function generateQuiz() {
+    const startTime = Date.now();
+    let status = "unknown";
     const { userId } = await auth();
     if (!userId) throw new Error("Unauthorized");
 
@@ -38,15 +40,22 @@ export async function generateQuiz() {
     }
   `;
 
-  const text = await generateNvidiaCompletion({ prompt })
+  const text = await generateNvidiaCompletion({ prompt, timeoutMs: 8000 })
 
   const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
   const quiz = JSON.parse(cleanedText)
 
+  status = "success";
   return quiz.questions;
     } catch (error) {
+        status = "error";
         console.error("Error Generating Quiz", error)
+        if (error.message?.includes("timed out")) {
+            throw new Error("Quiz generation timed out. Please try again.")
+        }
         throw new Error("Failed to generate Quiz questions")
+    } finally {
+        console.info("generateQuiz completed", { durationMs: Date.now() - startTime, status })
     }
 }
 
