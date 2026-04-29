@@ -2,12 +2,7 @@
 
 import { db } from "@/lib/prisma"
 import { auth } from "@clerk/nextjs/server"
-import { GoogleGenerativeAI } from "@google/generative-ai"
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
-const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
-})
+import { generateNvidiaCompletion } from "@/lib/ai/nvidia"
 
 export async function generateAIInsights( industry ){
     const prompt = `
@@ -29,9 +24,7 @@ export async function generateAIInsights( industry ){
           Growth rate should be a percentage.
           Include at least 5 skills and trends.
         `;
-    const result = await model.generateContent(prompt)
-    const response = result.response
-    const text = response.text()
+    const text = await generateNvidiaCompletion({ prompt })
 
     const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
     return JSON.parse(cleanedText)

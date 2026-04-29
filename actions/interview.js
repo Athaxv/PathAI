@@ -1,12 +1,7 @@
 "use server"
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
-const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
-})
+import { generateNvidiaCompletion } from "@/lib/ai/nvidia";
 
 export async function generateQuiz() {
     const { userId } = await auth();
@@ -43,9 +38,7 @@ export async function generateQuiz() {
     }
   `;
 
-  const result = await model.generateContent(prompt)
-  const response = result.response
-  const text = response.text()
+  const text = await generateNvidiaCompletion({ prompt })
 
   const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
   const quiz = JSON.parse(cleanedText)
@@ -102,9 +95,7 @@ export async function saveQuizResult(questions, answers, score){
     `;
 
     try {
-        const result = await model.generateContent(improvementPrompt)
-        const response = result.response
-        improvementTip = response.text().trim()
+        improvementTip = await generateNvidiaCompletion({ prompt: improvementPrompt })
     } catch (error) {
         console.error("Error Generating Improvemnt Tip", error);
     }

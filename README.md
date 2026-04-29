@@ -27,9 +27,15 @@ Designed with a sleek, responsive UI and a modular component structure — this 
 
 - **Frontend:** Next.js, React, Tailwind CSS
 - **Auth:** Clerk
-- **Backend/API:** PrismaORM, NeonDB, GeminiAPI, Node.js
+- **Backend/API:** PrismaORM, NeonDB, NVIDIA NIM API, Node.js
 - **Deployment:** Vercel
 
 ---
 
+## 🔐 Environment Variables
+
+- `NVIDIA_API_KEY` — required for AI responses
+- `NVIDIA_MODEL` — optional (defaults to `mistralai/mistral-medium-3.5-128b`)
+
+---
 
