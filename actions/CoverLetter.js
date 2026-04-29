@@ -1,11 +1,7 @@
 "use server"
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/prisma"
-import { GoogleGenerativeAI } from "@google/generative-ai";
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
-const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
-})
+import { generateNvidiaCompletion } from "@/lib/ai/nvidia";
 
 export async function generateCoverLetter(data){
     const { userId } = await auth()
@@ -46,8 +42,7 @@ export async function generateCoverLetter(data){
       `;
 
       try {
-        const result = await model.generateContent(prompt)
-        const content = result.response.text().trim()
+        const content = await generateNvidiaCompletion({ prompt })
 
         const coverLetter = db.coverLetter.create({
             data: {
