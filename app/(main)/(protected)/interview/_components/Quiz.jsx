@@ -26,6 +26,7 @@ function Quiz() {
     loading: generatingQuiz,
     fn: generateQuizFn,
     data: quizData,
+    error: quizError,
   } = useFetch(generateQuiz);
 
   const {
@@ -91,6 +92,26 @@ function Quiz() {
 
   if (generatingQuiz) {
     return <BarLoader className="mt-4" width={"100%"} color="gray" />;
+  }
+
+  if (quizError && !quizData) {
+    return (
+      <Card className={"mx-3"}>
+        <CardHeader>
+          <CardTitle>Quiz generation failed</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-muted-foreground">
+            {quizError.message || "Quiz generation took too long. Please try again."}
+          </p>
+        </CardContent>
+        <CardFooter>
+          <Button className={"w-full"} onClick={generateQuizFn}>
+            Retry Quiz Generation
+          </Button>
+        </CardFooter>
+      </Card>
+    );
   }
 
   if (!quizData) {
