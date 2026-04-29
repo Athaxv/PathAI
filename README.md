@@ -36,6 +36,6 @@ Designed with a sleek, responsive UI and a modular component structure — this 
 
 - `NVIDIA_API_KEY` — required for AI responses
 - `NVIDIA_MODEL` — optional (defaults to `mistralai/mistral-medium-3.5-128b`)
+- `NVIDIA_REASONING_EFFORT` — optional (omit to skip `reasoning_effort`)
 
 ---
-

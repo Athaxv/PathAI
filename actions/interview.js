@@ -97,7 +97,7 @@ export async function saveQuizResult(questions, answers, score){
     try {
         improvementTip = await generateNvidiaCompletion({ prompt: improvementPrompt })
     } catch (error) {
-        console.error("Error Generating Improvemnt Tip", error);
+        console.error("Error Generating Improvement Tip", error);
     }
 
     try {
